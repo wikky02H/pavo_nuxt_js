@@ -1,4 +1,5 @@
 // features.js (or features.ts if using TypeScript)
+//features
 export const features = [
     {
       "title": "Platform Integration",
@@ -32,6 +33,7 @@ export const features = [
     }
   ];
 
+  //details
   export const details = [
     {
       "title": "Happy Users",
@@ -56,6 +58,7 @@ export const features = [
     }
   ];
 
+  //testimonials
   export const testimonials = [
     {
       profilePic: "testimonial1.jpg",
@@ -84,5 +87,55 @@ export const features = [
       details: "The app support team is amazing. They've helped me with some issues and I am so grateful to the entire team", 
     }
   ];
-  
+
+//common features for price plans
+const commonFeatures = [
+  "List building and relations",
+  "Seamless platform integration",
+  "Great performance on devices",
+  "Community support and videos"
+];
+
+//price plans
+export const pricingPlans = [
+  {
+    planName: "Standard",
+    price: 29,
+    priceUnit: "month",
+    description: "This basic package covers the marketing needs of small startups.",
+    features: commonFeatures 
+  },
+  {
+    planName: "Advanced",
+    price: 39,
+    priceUnit: "month",
+    description: "This is a more advanced package suited for medium companies.",
+    features: commonFeatures 
+  },
+  {
+    planName: "Complete",
+    price: 49,
+    priceUnit: "month",
+    description: "This is a comprehensive package designed for big organizations.",
+    features: commonFeatures 
+  }
+];
+
+//footerSocialLinks
+export const socialLinks = [
+  { link: '#facebook', icon: 'fa-facebook-f' },
+  { link: '#twitter', icon: 'fa-twitter' },
+  { link: '#pinterest', icon: 'fa-pinterest-p' },
+  { link: '#instagram', icon: 'fa-instagram' },
+  { link: '#youtube', icon: 'fa-youtube' }
+];
+
+export const footerBar = [
+  {title: 'Article Details'},
+  {title: 'Terms & Conditions'},
+  {title: 'Privacy Policy'},
+  {title: 'Copyright © Your name'},
+  {title: 'Distributed by :Themewagon'},
+];
+
   

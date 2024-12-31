@@ -25,8 +25,8 @@
                 alt="Profile Picture"
                 class="profile-pic"
               />
+              <p class="details italic mb-3">{{ testimonial.details }}</p>
               <h4 class="designation">{{ testimonial.designation }}</h4>
-              <p class="details">{{ testimonial.details }}</p>
             </div>
           </div>
         </div>
@@ -47,82 +47,66 @@
 import { ref, computed } from 'vue'
 import { testimonials } from '~/constants/dataSets'
 import { onMounted, onUnmounted } from 'vue'
+
 const currentIndex = ref(0)
 const itemsPerPage = 3
 const isButtonActive = ref(false)
 const isAutoPlayActive = ref(false)
 let autoplayInterval: ReturnType<typeof setInterval>
 
+const totalTestimonials = testimonials.length
+
 const visibleTestimonials = computed(() => {
   const start = currentIndex.value
-  const end = start + itemsPerPage
+  const end = (start + itemsPerPage) % totalTestimonials
+  if (end > start) {
+    return testimonials.slice(start, end)
+  }
   return [
-    ...testimonials.slice(start, end),
-    ...testimonials.slice(0, end - testimonials.length),
+    ...testimonials.slice(start, totalTestimonials),
+    ...testimonials.slice(0, end),
   ]
 })
 
 const next = () => {
-  if (currentIndex.value + 1 < testimonials.length) {
-    currentIndex.value += 1
-  } else {
-    currentIndex.value = 0
-  }
+  currentIndex.value = (currentIndex.value + 1) % totalTestimonials
   handleButtonClick()
   smoothScroll()
 }
+
 const prev = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value -= 1
-  } else {
-    currentIndex.value = testimonials.length - 1
-  }
+  currentIndex.value =
+    (currentIndex.value - 1 + totalTestimonials) % totalTestimonials
   handleButtonClick()
   smoothScroll()
 }
+
 const smoothScroll = () => {
-  console.log('smoothScroll function triggered');
-  
-  const sliderContainer = document.querySelector('.slider-container') as HTMLElement;
-  console.log('sliderContainer:', sliderContainer);
-  
-  const sliderItem = sliderContainer?.querySelector('.slider-item') as HTMLElement;
-  console.log('sliderItem:', sliderItem);
+  const sliderContainer = document.querySelector(
+    '.slider-container'
+  ) as HTMLElement
+  const sliderItems = Array.from(
+    sliderContainer?.querySelectorAll('.slider-item') as NodeListOf<HTMLElement>
+  )
 
-  if (sliderItem) {
-    const itemWidth = 300;  
-    console.log('itemWidth:', itemWidth);
-    
-    const scrollToPosition = 1 * itemWidth;
-    // const scrollToPosition = currentIndex.value * itemWidth;
-    console.log('currentIndex:', currentIndex.value);
-    console.log('scrollToPosition:', scrollToPosition);
+  if (sliderItems.length > 0) {
+    const itemWidth = sliderItems[0].offsetWidth + 20
+    const scrollToPosition = currentIndex.value * itemWidth
+
     if (sliderContainer) {
-      if (scrollToPosition === 0) {
-        console.log('Scrolled to the first item, no movement');
-      } else {
-        console.log('Scrolling to position...');
-      }
-
-      // Scroll with smooth behavior
       sliderContainer.scrollTo({
         left: scrollToPosition,
         behavior: 'smooth',
-      });
-    } else {
-      console.error('Slider container not found.');
+      })
     }
-  } else {
-    console.error('Slider item not found or incorrect item width.');
   }
-};
-
+}
 
 onMounted(() => {
   isAutoPlayActive.value = true
   autoplayInterval = setInterval(() => {
     next()
-  }, 3000)
+  }, 3000) // Auto-scroll every 3 seconds
 })
 
 onUnmounted(() => {
@@ -139,6 +123,7 @@ const handleButtonClick = () => {
   }
 }
 </script>
+
 <style scoped>
 .testimonial-slider {
   position: relative;
@@ -153,23 +138,21 @@ const handleButtonClick = () => {
 
 .slider-container {
   display: flex;
-  transition: transform 0.5s ease-in-out; 
+  width: 100%;
+  overflow-x: hidden;
+  scroll-snap-type: x mandatory;
 }
 
 .slider {
   display: flex;
   width: 100%;
-  justify-content: center;
 }
 
 .slider-item {
-  flex: 0 0 33.33%; 
+  flex: 0 0 33.33%; /* Default: 3 items per slide */
   padding: 0 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box; 
-  transition: transform 0.5s ease-in-out; 
+  box-sizing: border-box;
+  transition: transform 0.5s ease-in-out;
 }
 
 .testimonial-card {
@@ -180,6 +163,11 @@ const handleButtonClick = () => {
   padding: 1rem;
   text-align: center;
   background-color: #f1f9fc;
+  padding-left: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 200px; /* Ensure a consistent card height */
 }
 
 .profile-pic {
@@ -191,13 +179,19 @@ const handleButtonClick = () => {
 
 .designation {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .details {
-  color: #666666;
-  font-size: 1rem;
+  color: #6b747b;
+  font-weight: 400; /* Regular weight */
+  font-size: 1rem; /* Font size */
+  line-height: 1.625rem; /* Line height */
+  font-family: 'Open Sans', sans-serif; /* Font family */
+  text-align: center;
+  margin: 0 1rem; /* Adding horizontal margins to avoid text touching edges */
 }
 
 .slider-button {
@@ -210,41 +204,17 @@ const handleButtonClick = () => {
   padding: 1rem;
   font-size: 1.5rem;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
   z-index: 1;
-  padding: 4rem;
-}
-
-.slider-button:focus,
-.slider-button:active {
-  background-color: transparent;
-  color: black;
-  outline: none;
-}
-
-.slider-button:hover {
-  background-color: transparent;
-}
-
-.slider-button.active {
-  background-color: transparent;
-  color: black;
 }
 
 .prev-button {
   left: 10px;
+  margin-left: 40px;
 }
 
 .next-button {
   right: 10px;
-}
-
-@media (max-width: 768px) {
-  .slider-item {
-    flex: 0 0 100%;
-  }
+  margin-right: 40px;
 }
 
 .custom-style {
@@ -254,8 +224,104 @@ const handleButtonClick = () => {
   line-height: 2.625rem;
   letter-spacing: -0.4px;
   padding-top: 5rem;
-  margin-top: 6rem;
-  text-align: center;
+  margin-top: 5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+  /* Tablet devices: Show 2 items per slide */
+  .slider-item {
+    flex: 0 0 50%;
+  }
+
+  .testimonial-slider {
+    padding: 3rem;
+  }
+
+  .slider-button {
+    font-size: 1.4rem;
+    padding: 1rem;
+  }
+
+  .prev-button,
+  .next-button {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile Landscape: Show 1 item per slide */
+  .slider-item {
+    flex: 0 0 100%; /* Show 1 testimonial per slide */
+    padding: 0 5px;
+  }
+
+  .testimonial-slider {
+    padding: 2rem; /* Reduce padding on mobile */
+  }
+
+  .slider-button {
+    font-size: 1.2rem; /* Smaller buttons */
+    padding: 0.8rem;
+  }
+
+  .prev-button {
+    left: 5px;
+    margin-left: 20px;
+  }
+
+  .next-button {
+    right: 5px;
+    margin-right: 20px;
+  }
+
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+  }
+
+  .designation {
+    font-size: 1rem;
+  }
+
+  .details {
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+  }
+
+  .custom-style {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    padding-top: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Small screens: Show 1 item per slide with additional tweaks */
+  .slider-button {
+    font-size: 1rem;
+    padding: 0.7rem;
+  }
+
+  .custom-style {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    padding-top: 2rem;
+  }
+
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+  }
+
+  .designation {
+    font-size: 0.9rem;
+  }
+
+  .details {
+    font-size: 0.8rem;
+    line-height: 1.25rem;
+  }
 }
 </style>
-

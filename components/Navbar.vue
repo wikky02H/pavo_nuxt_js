@@ -47,7 +47,7 @@
             class="text-sm font-semibold transition-colors duration-300 ease-in-out hover:text-[#ff6e84] px-2.5 flex items-center space-x-1"
             @click="navbarStore.toggleDropdown"
           >
-            Drop
+            
             <img
               src="../assets/images/downArrow1.svg"
               class="w-4 h-4 text-[#ff6e84]"

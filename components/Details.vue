@@ -72,6 +72,9 @@
   </div>
   <Statistics />
   <Slider />
+  <Pricing />
+  <Download />
+  <Footer />
 </template>
 
 <script setup lang="ts"></script>
