@@ -131,11 +131,12 @@ export const socialLinks = [
 ];
 
 export const footerBar = [
-  {title: 'Article Details'},
-  {title: 'Terms & Conditions'},
-  {title: 'Privacy Policy'},
-  {title: 'Copyright © Your name'},
-  {title: 'Distributed by :Themewagon'},
+  { title: 'Article Details' },
+  { title: 'Terms & Conditions' },
+  { title: 'Privacy Policy' },
+  { title: 'Copyright © Your name' },
+  { title: 'Distributed by :Themewagon' },
 ];
+
 
   

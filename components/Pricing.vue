@@ -32,14 +32,14 @@ import { pricingPlans } from '~/constants/dataSets'
   background-size: cover;
   color: white;
   text-align: center;
+  height: 128vh;
+  padding-top: 5rem;
+  position: relative; /* Ensure elements stay within bounds */
+  padding-bottom: 2rem; /* To ensure the last card fits in */
 }
 
 .pricingStyles h2 {
-  padding-top: 8rem;
-  --tw-text-opacity: 1;
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
-  margin-bottom: 0.625rem;
-  font-weight: 700;
+  margin-bottom: 1.25rem;
   font-size: 2.125rem;
   line-height: 2.625rem;
   letter-spacing: -0.4px;
@@ -54,25 +54,79 @@ import { pricingPlans } from '~/constants/dataSets'
   line-height: 1.625rem;
   font-family: 'Open Sans', sans-serif;
   text-align: center;
-  --tw-text-opacity: 1;
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
+
 .pricing-cards-container {
   display: flex;
   justify-content: center;
   gap: 2.5rem;
   flex-wrap: wrap;
   margin-top: 4rem;
+  padding-bottom: 2rem; /* Ensure space at bottom */
+  max-width: 100%;
 }
 
+/* Tablet view (768px and below) */
 @media (max-width: 768px) {
+  .pricingStyles {
+    padding-top: 4rem;
+    height: 563vh;
+  }
+
   .pricingStyles h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .pricingStyles p {
-    font-size: 1rem;
+    font-size: 0.875rem;
     padding: 0 1rem;
+  }
+
+  .pricing-cards-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 5rem; /* Added padding to fit last card */
+  }
+
+  .pricing-card {
+    width: 90%; /* Ensure pricing cards fit well */
+    padding: 2rem 1.25rem 4rem 1rem;
+    /* margin-top: 3rem; */
+  }
+  .pricing-card:not(:first-child) {
+    margin-top: 3rem; /* Adjust this value as needed */
+  }
+}
+
+/* Mobile view (480px and below) */
+@media (max-width: 480px) {
+  .pricingStyles {
+    padding-top: 3.5rem;
+    height: 590vh;
+  }
+
+  .pricingStyles h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pricingStyles p {
+    font-size: 0.875rem;
+    padding: 0 1rem;
+  }
+
+  .pricing-cards-container {
+    gap: 1rem;
+    padding-bottom: 5rem; /* Additional padding for mobile */
+  }
+
+  .pricing-card {
+    width: 90%;
+    padding: 1.5rem 1.25rem 3.5rem 1rem;
+  }
+  .pricing-card > ::after {
+    margin-top: 2.5rem;
   }
 }
 </style>

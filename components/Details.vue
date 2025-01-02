@@ -70,11 +70,24 @@
       </div>
     </div>
   </div>
-  <Statistics />
-  <Slider />
-  <Pricing />
-  <Download />
-  <Footer />
+  <div class="container">
+    <div class="text-container">
+      <h2
+        class="mb-6 font-bold text-[2.125rem] leading-[2.625rem] tracking-[0.4px]"
+      >
+         Platform integration and life time free updates
+      </h2>
+      <p class="mb-4">
+        Get a glimpse of what this app can do for your marketing automation and understand why current users are so excited when using Pavo together with their teams.
+      </p>
+      <p class="mb-4">
+        We will promptly answer any questions and honor your requests based on the service level agreement
+      </p>
+    </div>
+    <div class="image-container">
+      <img src="../public/details/detailsImg2.jpg" alt="Details Image" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts"></script>
@@ -82,15 +95,15 @@
 <style scoped>
 .container {
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
+  justify-content: space-between;
+  align-items: center;
   padding: 5rem;
-  gap: 5rem; 
+  gap: 5rem;
 }
 
 .text-container {
-  flex: 1; 
-  max-width: 40%; 
+  flex: 1;
+  max-width: 40%;
 }
 
 .text-container h2 {
@@ -99,36 +112,67 @@
 }
 
 .text-container p {
-  font:
-    400 1rem/1.625rem 'Open Sans',
-    sans-serif;
+  font: 400 1rem/1.625rem 'Open Sans', sans-serif;
   color: #6b747b;
   line-height: 1.5;
 }
 
 .image-container {
-  flex: 1; 
-  text-align: right; 
+  flex: 1;
+  text-align: right;
 }
 
 .image-container img {
-  max-width: 100%; 
+  max-width: 100%;
   height: auto;
 }
 
 @media (max-width: 1024px) {
   .container {
-    flex-direction: column; 
-    text-align: center; 
+    flex-direction: column;
+    text-align: left; /* Align text to the left */
   }
 
   .text-container {
     max-width: 100%;
+    text-align: left; /* Align the text within the container to the left */
   }
 
   .image-container {
-    max-width: 100%; 
-    text-align: center; 
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .flex.items-center {
+    justify-content: flex-start; /* Align icon and text to the left */
+  }
+
+  .ml-1 {
+    margin-left: 0;
+  }
+
+  .space-x-3 {
+    margin-left: 0;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap; /* Ensure buttons stack on smaller screens */
+  }
+
+  /* Button responsiveness */
+  .w-32,
+  .w-28 {
+    width: 100%; /* Buttons will take up full width on mobile */
+    max-width: 200px; /* Limit button width for better look */
+  }
+
+  .h-11 {
+    height: 40px; /* Adjust button height for mobile */
+  }
+
+  /* Adjust text size */
+  .text-sm {
+    font-size: 0.875rem; /* Make text size smaller for mobile */
   }
 }
 </style>

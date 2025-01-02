@@ -1,18 +1,17 @@
 <template>
   <div class="backgroundColor">
-    <!-- Left side content -->
     <div class="content-container">
-      <h1 class="mb-5 text-2xl font-bold">
+      <h1 class="mb-5 text-[2.975rem] font-bold leading-[3.5rem]">
         Team management mobile application
       </h1>
-      <p class="text-xl font-light mb-8 text-[#6b747b]">
+      <p class="text-xl font-light mb-8 text-[#6b747b] ">
         Start getting things done together with your team based on Pavo's
         revolutionary team management features.
       </p>
-      <div class="social-icons ml-5 flex space-x-3">
+      <div class="social-icons flex space-x-3">
         <a
           href="#apple"
-          class="flex items-center justify-center px-6 py-2 bg-indigo-600 text-white rounded-[30px] text-lg cursor-pointer hover:bg-[#ff6e84] transition-colors duration-300 ease-in-out"
+          class="flex items-center justify-center px-6 py-2 bg-indigo-600 text-white rounded-[30px] text-lg cursor-pointer hover:bg-transparent hover:border-indigo-600 hover:text-indigo-600 hover:shadow-lg border  border-transparent transition-all duration-300 ease-in-out"
         >
           <i class="fab fa-apple mr-2"></i>
           Download
@@ -20,7 +19,7 @@
 
         <a
           href="#android"
-          class="flex items-center justify-center px-6 py-2 bg-green-600 text-white rounded-[30px] text-lg cursor-pointer hover:bg-[#ff6e84] transition-colors duration-300 ease-in-out"
+          class="flex items-center justify-center px-6 py-2 bg-pink-500 text-white rounded-[30px] text-lg cursor-pointer hover:bg-transparent hover:text-pink-500 hover:border-pink-500 border border-transparent transition-all duration-300 ease-in-out"
         >
           <i class="fab fa-google-play mr-2"></i>
           Download
@@ -43,8 +42,14 @@
   </div>
   <Features />
   <Details />
+  <Statistics />
+  <Slider />
+  <Pricing />
+  <Download />
+  <Footer />
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <style scoped>
 .backgroundColor {
@@ -56,12 +61,14 @@
   text-align: center;
   width: 100%; 
   box-sizing: border-box;
+  gap: 24px;
 }
 
 .content-container {
   flex: 1;
   max-width: 500px; 
-  padding: 20px;
+  text-align: left;
+  /* padding: 20px; */
 }
 
 

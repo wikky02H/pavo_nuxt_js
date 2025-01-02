@@ -1,5 +1,5 @@
 <template>
-  <div class="feature-list">
+  <div class="feature-list" >
     <div class="feature-card" v-for="(feature, index) in features" :key="index">
       <img
         :src="`features/${feature.imgPath}`"
