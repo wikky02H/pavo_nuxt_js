@@ -37,9 +37,10 @@
     font-family: 'Open Sans', sans-serif;
     flex-wrap: wrap;
     gap: 0;
-    margin-left: 7rem;
+    margin-left: 0rem;
     margin-top: 4.5rem;
     justify-content: flex-start; /* Align items to the left for desktop */
+    /* padding-top: 5rem; */
   }
   
   /* Footer item styles */

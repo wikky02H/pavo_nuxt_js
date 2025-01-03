@@ -88,6 +88,8 @@
       <img src="../public/details/detailsImg2.jpg" alt="Details Image" />
     </div>
   </div>
+  <Statistics />
+  <Slider />
 </template>
 
 <script setup lang="ts"></script>
@@ -97,7 +99,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5rem;
+  padding: 1rem;
   gap: 5rem;
 }
 
@@ -151,9 +153,9 @@
     margin-left: 0;
   }
 
-  .space-x-3 {
+  /* .space-x-3 {
     margin-left: 0;
-  }
+  } */
 
   .flex-wrap {
     flex-wrap: wrap; /* Ensure buttons stack on smaller screens */

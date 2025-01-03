@@ -6,7 +6,7 @@
     </div>
 
     <!-- Right side: Text and Buttons Section -->
-    <div class="text-section">
+    <div class="text-sectionfeatures">
       <p class="mb-9 text1">
         Team management mobile applications don’t get much better than Pavo.
         Download it today.
@@ -105,7 +105,6 @@
   background-size: cover;
   padding: 4rem;
 }
-
 /* Responsive Styles */
 @media (max-width: 1024px) {
   .container {
@@ -145,8 +144,9 @@
 
 @media (max-width: 480px) {
   .text1 {
-    font-size: 2rem;
+    font-size: 1.875rem;
     line-height: 2.5rem;
+    color: gray;
   }
 
   .container {
@@ -168,6 +168,9 @@
     max-width: 250px;
     padding: 10px 16px;
     gap: 2px;
+  }
+  .text-section {
+    max-width: auto;
   }
 }
 </style>

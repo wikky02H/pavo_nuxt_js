@@ -29,7 +29,7 @@ import { socialLinks } from '~/constants/dataSets'
 <style scoped>
 .footer {
   padding-top: 6rem;
-  padding-bottom: 3rem;
+  padding-bottom: 1.9rem;
   background: linear-gradient(rgba(255, 255, 255, 1), rgba(197, 234, 249, 1));
   text-align: center;
   display: flex;

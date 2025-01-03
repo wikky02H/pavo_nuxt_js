@@ -1,12 +1,12 @@
 <template>
   <div
     :class="['navbar', { scrolled: isScrolled }]"
-    class="flex justify-between items-center fixed left-0 right-0 p-4 bg-transparent z-10 w-full transition-all ease-in-out"
+    class="flex justify-between items-center fixed left-0 right-0 p-2 pt-[1.6rem] bg-transparent z-10 w-full transition-all ease-in-out"
   >
-    <div class="navbar-img">
+    <div class="navbar-img lg:pl-2 lg:pt-[4px]">
       <img src="../assets/images/navbarLogo.png" alt="Logo" class="h-8" />
     </div>
-    <div class="flex items-center space-x-6 mr-20">
+    <div class="flex items-center mr-20 lg:mr-[4.2rem]">
       <NavbarLinks
         :activeLink="navbarStore.activeLink"
         :dropdownOpen="navbarStore.dropdownOpen"
@@ -64,7 +64,6 @@ onUnmounted(() => {
 <style scoped>
 .navbar {
   transition: all 0.3s ease;
-  /* margin-top: 10PX; */
 }
 
 .navbar.scrolled {
@@ -74,7 +73,8 @@ onUnmounted(() => {
 }
 .navbar-img{
   /* ml-14; */
-  margin-left: 72px
+  margin-left: 72px;
+  vertical-align: middle;
 }
 @media (max-width: 1024px) {
   .navbar {
@@ -82,7 +82,8 @@ onUnmounted(() => {
       padding:8px 0 8px 0;
   }
   .navbar-img{
-    margin-left: 32px
+    margin-left: 32px;
+    vertical-align: middle;
   }
 }
 </style>

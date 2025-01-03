@@ -1,24 +1,15 @@
 <template>
-  <div class="features">
+  <div class="lg:p-[5rem] md:p-[2rem] p-[10px]">
     <Card :features="features" />
   </div>
 </template>
 
 <script setup lang="ts">
-    import { useRouter } from 'vue-router'
-    import { features } from '~/constants/dataSets'
-    import Card from './Card.vue'
-    const router = useRouter()
-    const goToFeatures = () => {
-    // Navigate to /features and then scroll to the #features element
-    router.push('/features').then(() => {
-      // Scroll to the element after navigation
-      document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })
-    })
-  }
+import { features } from '~/constants/dataSets'
+import Card from './Card.vue'
 </script>
 <style scoped>
-    .features{
-        padding: 5rem;
-    }
+.features {
+  padding: 5rem;
+}
 </style>
