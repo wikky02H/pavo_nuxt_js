@@ -134,9 +134,42 @@ export const footerBar = [
   { title: 'Article Details' },
   { title: 'Terms & Conditions' },
   { title: 'Privacy Policy' },
-  { title: 'Copyright © Your name' },
-  { title: 'Distributed by :Themewagon' },
+  // { title: 'Copyright © Your name' },
+  // { title: 'Distributed by :Themewagon' },
 ];
 
+export const navLinks = [
+  { name: 'home', label: 'Home', to: '#home' },
+  { name: 'features', label: 'Features', to: '#features' },
+  { name: 'details', label: 'Details', to: '#details' },
+  { name: 'pricing', label: 'Pricing', to: '#pricing' },
+  { name: 'download', label: 'Download', to: '#download' },
+];
+
+export const dropdownLinks = [
+  { name: 'article', label: 'Article Details', to: '#article' },
+  { name: 'terms', label: 'Terms & Conditions', to: '#terms' },
+  { name: 'privacy', label: 'Privacy Policy', to: '#privacy' },
+];
+
+export const socialIcons = [
+  { name: 'apple', class: 'fab fa-apple', href: '#apple' },
+  { name: 'android', class: 'fab fa-android', href: '#android' },
+];
+
+export const headerTabs = [
+  { name: 'home', orderNo: 1},
+  { name: 'features', orderNo: 2},
+  { name: 'details', orderNo: 3},
+  { name: 'pricing', orderNo: 4},
+  { name: 'drop', orderNo: 5},
+  { name: 'download', orderNo: 6 },
+];
+
+export const dropDownValues = [
+  { name: 'Article Details', orderNo: 1},
+  { name: 'Terms & Conditions', orderNo: 2},
+  { name: 'Privacy Policy', orderNo: 3}
+];
 
   

@@ -1,90 +1,94 @@
 <template>
-    <div class="footer-bar">
-      <div
-        v-for="(item, index) in footerBar"
+  <div class="mt-16 lg:mt-7 grid grid-cols-1 lg:grid-cols-3 mb-[23px] ml-1 gap-[1.7545rem]">
+      <ul class="flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-5">
+      <li
+        v-for="(item, index) in filteredFooterBar"
         :key="index"
-        :class="['footer-item']"
-        :style="getItemStyle(index)"
+        class="text-[#6b747b] text-[14px] font-normal"
       >
-        {{ item.title }}
-      </div>
-    </div>
-  </template>
-  
-  <script setup lang="ts">
-  import { footerBar } from '~/constants/dataSets';
-  
-  const getItemStyle = (index: number) => {
-    if (index === 0) {
-      return { marginLeft: '30px' };
-    } else if (index === 1) {
-      return { marginLeft: '22px' };
-    } else if (index === 2) {
-      return { marginLeft: '22px' };
-    } else if (index === 3) {
-      return { marginLeft: '14rem' };
-    } else if (index === 4) {
-      return { marginLeft: '10.5rem' };
+        {{ item.name }} 
+      </li>
+    </ul>    
+    <p class=" text-[#6b747b] text-[14px] font-normal text-center lg:text-right">
+      {{ getFooterDetail(4)  ?? 'Copyright © Your name'}}
+      <!-- Copyright © Your name -->
+    </p>
+    <p class=" text-[#6b747b] text-[14px] font-normal text-center lg:text-right lg:mr-[4px]">
+      {{ getFooterDetail(5) ?? 'Distributed by : Themewagon'}}
+      <!-- Distributed by : Themewagon -->
+    </p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { GetMenuListApi } from "~/services/home";
+import type { TContent } from '~/types/api-data-type';
+const footerContent = ref<TContent | null>(null);
+const filteredFooterBar = computed(() => {
+  return footerContent.value?.footer?.filter(item => [1, 2, 3].includes(item.orderNo)) || [];
+});
+
+function getFooterDetail(orderNo: number) {
+  const filteredItems = footerContent.value?.footer?.find(item => item.orderNo === orderNo);
+  return filteredItems ? filteredItems?.name : null;
+}
+
+
+onMounted(() => {
+  GetFooterContentData();
+});
+
+async function GetFooterContentData() {
+  try {
+    const { data = null, status = 500 } = await GetMenuListApi();
+    if (status === 200 && data) {
+        footerContent.value = data;
+        console.info('footerContentdata',data);
+    } else {
+      footerContent.value = null;
+      console.error('Failed to fetch page content data');
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* Footer container styles */
-  .footer-bar {
-    display: flex;
-    align-items: center;
-    font-family: 'Open Sans', sans-serif;
-    flex-wrap: wrap;
-    gap: 0;
-    margin-left: 0rem;
-    margin-top: 4.5rem;
-    justify-content: flex-start; /* Align items to the left for desktop */
-    /* padding-top: 5rem; */
+  } catch (error) {
+    console.error('Error fetching page content data:', error);
+    footerContent.value = null;
   }
-  
-  /* Footer item styles */
+}
+</script>
+
+<style scoped>
+.footer-bar {
+  display: flex;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-left: 0rem;
+  margin-top: 4.5rem;
+  justify-content: flex-start; 
+}
+
+@media (max-width: 768px) {
+  .footer-bar {
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    gap: 10px;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-bar {
+    padding: 0.5rem;
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+
   .footer-item {
     font-size: 14px;
-    font-weight: normal;
-    margin: 0;
-    padding: 0;
-    text-align: left; /* Text alignment left by default */
-    transition: all 0.3s ease;
-    color: #6b747b;
+    text-align: center; /* Center the text for smaller screens */
+    margin-left: 0 !important;
   }
-  
-  /* Responsive styles for tablets and below (max-width: 768px) */
-  @media (max-width: 768px) {
-    .footer-bar {
-      flex-direction: column;
-      align-items: center; /* Center the items in the footer */
-      justify-content: center;
-      gap: 10px;
-      margin-left: 0;
-      margin-top: 1rem;
-    }
-  
-    .footer-item {
-      text-align: center; /* Center the text for smaller screens */
-      font-size: 16px;
-      margin-left: 0 !important;
-    }
-  }
-  
-  /* Responsive styles for mobile devices (max-width: 480px) */
-  @media (max-width: 480px) {
-    .footer-bar {
-      padding: 0.5rem;
-      margin-left: 0;
-      margin-top: 1rem;
-    }
-  
-    .footer-item {
-      font-size: 14px;
-      text-align: center; /* Center the text for smaller screens */
-      margin-left: 0 !important;
-    }
-  }
-  </style>
-  
+}
+</style>

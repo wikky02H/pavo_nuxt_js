@@ -44,84 +44,86 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { testimonials } from '~/constants/dataSets'
-import { onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { GetFeedbackContentApi } from "~/services/home";
+import type { TSlider } from "~/types/api-data-type";
 
-const currentIndex = ref(0)
-const itemsPerPage = 3
-const isButtonActive = ref(false)
-const isAutoPlayActive = ref(false)
-let autoplayInterval: ReturnType<typeof setInterval>
+const visibleTestimonialsData = ref<{
+  profilePic: string;
+  details: string;
+  designation: string;
+  orderNo: number;
+}[]>([]);
 
-const totalTestimonials = testimonials.length
+const currentIndex = ref(0);
+const itemsPerPage = 3;
+const isButtonActive = ref(false);
+const isAutoPlayActive = ref(true);
+let autoplayInterval: ReturnType<typeof setInterval>;
+const totalTestimonials = ref(0);
+
+const GetStatisticsData = async () => {
+  try {
+    const { data = null, status = 500 } = await GetFeedbackContentApi();
+    if (status === 200 && data) {
+      visibleTestimonialsData.value = (data as TSlider[]).map((item: TSlider) => ({
+        profilePic: item.contentImagePath || "default.jpg",
+        details: item.feedback || "No description available",
+        designation: item.userName || "Anonymous User",
+        orderNo: item.orderNo || 0,
+      }));
+      totalTestimonials.value = visibleTestimonialsData.value.length;
+    } else {
+      console.error("Failed to fetch testimonials data.");
+    }
+  } catch (error) {
+    console.error("Error fetching testimonials data:", error);
+  }
+};
 
 const visibleTestimonials = computed(() => {
-  const start = currentIndex.value
-  const end = (start + itemsPerPage) % totalTestimonials
+  const start = currentIndex.value;
+  const end = (start + itemsPerPage) % totalTestimonials.value;
   if (end > start) {
-    return testimonials.slice(start, end)
+    return visibleTestimonialsData.value.slice(start, end);
   }
   return [
-    ...testimonials.slice(start, totalTestimonials),
-    ...testimonials.slice(0, end),
-  ]
-})
+    ...visibleTestimonialsData.value.slice(start, totalTestimonials.value),
+    ...visibleTestimonialsData.value.slice(0, end),
+  ];
+});
 
 const next = () => {
-  currentIndex.value = (currentIndex.value + 1) % totalTestimonials
-  handleButtonClick()
-  smoothScroll()
-}
+  currentIndex.value = (currentIndex.value + 1) % totalTestimonials.value;
+  handleButtonClick();
+};
 
 const prev = () => {
   currentIndex.value =
-    (currentIndex.value - 1 + totalTestimonials) % totalTestimonials
-  handleButtonClick()
-  smoothScroll()
-}
-
-const smoothScroll = () => {
-  const sliderContainer = document.querySelector(
-    '.slider-container'
-  ) as HTMLElement
-  const sliderItems = Array.from(
-    sliderContainer?.querySelectorAll('.slider-item') as NodeListOf<HTMLElement>
-  )
-
-  if (sliderItems.length > 0) {
-    const itemWidth = sliderItems[0].offsetWidth + 20
-    const scrollToPosition = currentIndex.value * itemWidth
-
-    if (sliderContainer) {
-      sliderContainer.scrollTo({
-        left: scrollToPosition,
-        behavior: 'smooth',
-      })
-    }
-  }
-}
-
-onMounted(() => {
-  isAutoPlayActive.value = true
-  autoplayInterval = setInterval(() => {
-    next()
-  }, 3000) // Auto-scroll every 3 seconds
-})
-
-onUnmounted(() => {
-  clearInterval(autoplayInterval)
-  isAutoPlayActive.value = false
-})
+    (currentIndex.value - 1 + totalTestimonials.value) % totalTestimonials.value;
+  handleButtonClick();
+};
 
 const handleButtonClick = () => {
   if (!isAutoPlayActive.value) {
-    isButtonActive.value = true
+    isButtonActive.value = true;
     setTimeout(() => {
-      isButtonActive.value = false
-    }, 200)
+      isButtonActive.value = false;
+    }, 200);
   }
-}
+};
+
+onMounted(() => {
+  GetStatisticsData();
+  autoplayInterval = setInterval(() => {
+    if (isAutoPlayActive.value) next();
+  }, 3000); // Auto-scroll every 3 seconds
+});
+
+onUnmounted(() => {
+  clearInterval(autoplayInterval);
+});
+console.log('visibleTestimonials',visibleTestimonials.value);
 </script>
 
 <style scoped>
@@ -325,3 +327,4 @@ const handleButtonClick = () => {
   }
 }
 </style>
+

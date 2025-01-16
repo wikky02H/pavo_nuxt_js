@@ -1,12 +1,17 @@
 <template>
   <div class="pricingStyles">
-    <h2>Pricing options for all budgets</h2>
-    <p class="mb-16 text-white lg:max-w-3xl lg:mx-auto">
+    <h2 class="text-white text-[2.125rem] font-bold">
+      Pricing options for all budgets
+    </h2>
+    <p class="mb-16 !text-white">
       Our pricing plans are set up in such a way that any user can start
       enjoying Pavo without worrying so much about costs. They are flexible and
       work for any type of industry.
     </p>
-    <div class="pricing-cards-container">
+    <div
+      class="flex justify-center flex-wrap mt-[2rem] sm:mt-[4rem] container px-4 sm-px-8"
+    >
+      <div class="absolute bottom-0 h-40 w-full bg-white"></div>
       <PricingCard
         v-for="(plan, index) in pricingPlans"
         :key="index"
@@ -21,11 +26,49 @@
 </template>
 
 <script lang="ts" setup>
-import { pricingPlans } from '~/constants/dataSets'
+import { ref, onMounted } from 'vue'
+import { GetSubscriptionApi } from '~/services/home'
+import type { TPricingPlan } from '~/types/api-data-type'
+const pricingPlans = ref<TPricingPlan[]>([])
+const GetSubscriptionData = async () => {
+  try {
+    const { data = null, status = 500 } = await GetSubscriptionApi()
+
+    if (status === 200 && data) {
+      console.log('Fetched Subscription Data:', data)
+
+      // Flatten the data by extracting plans from each category
+      pricingPlans.value = Object.keys(data).flatMap((category) =>
+  data[category].map((plan: any) => ({
+    id: plan.id,
+    planName: plan.planName,
+    description: plan.planDescription,
+    price: plan.planPrice,
+    priceUnit: plan.billingCycle,
+    billingCycle: plan.billingCycle,
+    features: plan.subscriptionDetails.map(
+      (detail: any) => detail.detailDescription
+    ),
+  }))
+)
+
+      console.log('Processed Pricing Plans:', pricingPlans.value)
+    } else {
+      console.error('Failed to fetch subscription data.')
+    }
+  } catch (error) {
+    console.error('Error fetching subscription data:', error)
+  }
+}
+onMounted(() => {
+  GetSubscriptionData()
+  console.log('SubscriptionData12345=>', GetSubscriptionData())
+})
+console.log('pricingPlansFinal',pricingPlans.value);
 </script>
 
 <style scoped>
-.pricingStyles {
+/* .pricingStyles {
   background:
     linear-gradient(rgba(50, 60, 70, 0.9), rgba(50, 60, 70, 0.9)),
     url('../pricing/pricingBg.jpg') center center no-repeat;
@@ -34,8 +77,17 @@ import { pricingPlans } from '~/constants/dataSets'
   text-align: center;
   height: 128vh;
   padding-top: 5rem;
-  position: relative; /* Ensure elements stay within bounds */
-  padding-bottom: 2rem; /* To ensure the last card fits in */
+  position: relative; 
+  padding-bottom: 2rem; 
+} */
+.pricingStyles {
+  position: relative;
+  padding-top: 8rem;
+  background:
+    linear-gradient(rgba(50, 60, 70, 0.9), rgba(50, 60, 70, 0.9)),
+    url('../pricing/pricingBg.jpg') center center no-repeat;
+  background-size: cover;
+  text-align: center;
 }
 
 .pricingStyles h2 {
@@ -68,11 +120,6 @@ import { pricingPlans } from '~/constants/dataSets'
 
 /* Tablet view (768px and below) */
 @media (max-width: 768px) {
-  .pricingStyles {
-    padding-top: 4rem;
-    height: 563vh;
-  }
-
   .pricingStyles h2 {
     font-size: 1.75rem;
   }
@@ -103,7 +150,6 @@ import { pricingPlans } from '~/constants/dataSets'
 @media (max-width: 480px) {
   .pricingStyles {
     padding-top: 3.5rem;
-    height: 590vh;
   }
 
   .pricingStyles h2 {
@@ -119,14 +165,6 @@ import { pricingPlans } from '~/constants/dataSets'
   .pricing-cards-container {
     gap: 1rem;
     padding-bottom: 5rem; /* Additional padding for mobile */
-  }
-
-  .pricing-card {
-    width: 90%;
-    padding: 1.5rem 1.25rem 3.5rem 1rem;
-  }
-  .pricing-card > ::after {
-    margin-top: 2.5rem;
   }
 }
 </style>

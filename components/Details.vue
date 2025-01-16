@@ -1,120 +1,133 @@
 <template>
-  <div class="container">
-    <div class="text-container">
-      <h2
-        class="mb-6 font-bold text-[2.125rem] leading-[2.625rem] tracking-[0.4px]"
-      >
-        Results driven ground breaking technology
-      </h2>
-      <p class="mb-4">
-        Based on our team's extensive experience in developing line of business
-        applications and constructive customer feedback we reached a new level
-        of revenue.
-      </p>
-      <p class="mb-4">
-        We enjoy helping small and medium sized tech businesses take a shot at
-        established Fortune 500 companies
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="../public/details/detailsImg.jpg" alt="Details Image" />
-    </div>
-  </div>
-  <div class="container">
-    <div class="image-container">
-      <img src="../public/details/detailsImg1.jpg" alt="Details Image" />
-    </div>
-    <div class="text-container">
-      <h2
-        class="mb-6 font-bold text-[2.125rem] leading-[2.625rem] tracking-[0.4px]"
-      >
-        Instant results for the marketing department
-      </h2>
-      <p class="mb-2 flex items-center gap-[5px]">
-        <img
-          src="../assets/images/rightSolidArrow.svg"
-          class="w-4 h-3.5 text-[#ff6e84]"
-          alt="Dropdown Arrow"
-        />
-        Features that will help you and your marketers
-      </p>
-      <p class="mb-2 flex items-center gap-[5px]">
-        <img
-          src="../assets/images/rightSolidArrow.svg"
-          class="w-4 h-3.5 text-[#ff6e84]"
-          alt="Dropdown Arrow"
-        />
-        Smooth learning curve due to the knowledge base
-      </p>
-      <p class="mb-6 flex items-center gap-[5px]">
-        <img
-          src="../assets/images/rightSolidArrow.svg"
-          class="w-4 h-3.5 text-[#ff6e84]"
-          alt="Dropdown Arrow"
-        />
-        Ready out-of-the-box with minor setup settings
-      </p>
-      <div class="ml-1 flex space-x-3">
-        <a
-          href="#apple"
-          class="flex items-center justify-center px-6 py-2 bg-indigo-600 border border-indigo-600 text-white rounded-full cursor-pointer hover:bg-white hover:text-indigo-600 w-32 h-11 text-sm font-semibold"
+  <div
+    class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:mt-[90.5px]"
+  >
+    <div class="lg:col-span-5">
+      <div class="mb-16 lg:mb-0 xl:mt-16">
+        <h2 class="mb-6 title1">
+          {{ getDetailContent(3, 'details').value.contentTitle }}
+        </h2>
+        <p
+          class="mb-4"
+          v-for="(detail, index) in getDetailContent(3, 'details').value
+            .contentDetailsList"
+          :key="index"
         >
-          Lightbox
-        </a>
-        <a
-          href="#android"
-          class="flex items-center justify-center px-6 py-2 bg-white border border-black text-black rounded-full cursor-pointer hover:bg-black hover:text-white w-28 h-11 text-sm"
-        >
-          Details
-        </a>
+          {{ detail.contentDetailName }}
+        </p>
+      </div>
+    </div>
+    <div class="lg:col-span-7">
+      <div class="xl:ml-14">
+        <img
+          class="inline"
+          src="../public/details/detailsImg.jpg"
+          alt="alternative"
+        />
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="text-container">
-      <h2
-        class="mb-6 font-bold text-[2.125rem] leading-[2.625rem] tracking-[0.4px]"
-      >
-         Platform integration and life time free updates
-      </h2>
-      <p class="mb-4">
-        Get a glimpse of what this app can do for your marketing automation and understand why current users are so excited when using Pavo together with their teams.
-      </p>
-      <p class="mb-4">
-        We will promptly answer any questions and honor your requests based on the service level agreement
-      </p>
+  <div class="lg:py-[9.9rem] md:py-[8rem] py-10">
+    <div class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12">
+      <div class="lg:col-span-7">
+        <div class="mb-12 lg:mb-0 xl:mr-14">
+          <img
+            class="inline"
+            src="../public/details/detailsImg1.jpg"
+            alt="alternative"
+          />
+        </div>
+      </div>
+      <div class="lg:col-span-5">
+        <div class="xl:mt-12">
+          <h2 class="mb-6 title1">
+            {{ getDetailContent(4, 'details').value.contentTitle }}
+          </h2>
+          <ul
+            class="list mb-7 space-y-2 -mt-2"
+            v-for="(detail, index) in getDetailContent(4, 'details').value
+              .contentDetailsList"
+            :key="index"
+          >
+            <li class="flex">
+              <i
+                class="fas fa-chevron-right lg:mt-[7px] lg:mr-1.5 text-[#594cda] text-xs"
+              ></i>
+              <div class="ml-2 md:mt-0 md:ml-0">
+                {{ detail.contentDetailName }}
+              </div>
+            </li>
+          </ul>
+          <a
+            class="btn-solid-reg popup-with-move-anim mr-1.5"
+            href="#details-lightbox"
+            >Lightbox</a
+          >
+          <a class="btn-outline-reg lg:ml-1" href="article.html">Details</a>
+        </div>
+      </div>
     </div>
-    <div class="image-container">
-      <img src="../public/details/detailsImg2.jpg" alt="Details Image" />
+  </div>
+  <div class="pt-16 pb-12 lg:pt-0">
+    <div
+      class="container px-4 sm:px-8 lg:grid lg:grid-cols-12 lg:gap-x-12 py-10 md:py-0"
+    >
+      <div class="lg:col-span-5">
+        <div class="mb-16 lg:mb-0 xl:mt-24 lg:mb">
+          <h2 class="mb-6 title1">
+            {{ getDetailContent(5, 'details').value.contentTitle }}
+          </h2>
+          <p
+            class="mb-4"
+            v-for="(detail, index) in getDetailContent(5, 'details').value
+              .contentDetailsList"
+            :key="index"
+          >
+            {{ detail.contentDetailName }}
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <div class="ml-14">
+          <img
+            class="inline"
+            src="../public/details/detailsImg2.jpg"
+            alt="alternative"
+          />
+        </div>
+      </div>
     </div>
   </div>
   <Statistics />
   <Slider />
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+    import { usePageContent } from '~/composables/usePageContent'
+    const { getDetailContent } = usePageContent()
+</script>
 
 <style scoped>
-.container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  gap: 5rem;
-}
-
 .text-container {
   flex: 1;
   max-width: 40%;
 }
-
+.title1 {
+  color: #252c38;
+  font-weight: 700;
+  font-size: 2.125rem;
+  line-height: 2.625rem;
+  letter-spacing: -0.4px;
+}
 .text-container h2 {
   font-weight: bold;
   color: #333;
 }
 
 .text-container p {
-  font: 400 1rem/1.625rem 'Open Sans', sans-serif;
+  font:
+    400 1rem/1.625rem 'Open Sans',
+    sans-serif;
   color: #6b747b;
   line-height: 1.5;
 }
@@ -128,16 +141,36 @@
   max-width: 100%;
   height: auto;
 }
-
+.btn-outline-reg {
+  display: inline-block;
+  padding: 1.375rem 2.25rem 1.375rem 2.25rem;
+  border: 1px solid #252c38;
+  border-radius: 32px;
+  background-color: transparent;
+  color: #252c38;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-solid-reg {
+  display: inline-block;
+  padding: 1.375rem 2.25rem 1.375rem 2.25rem;
+  border: 1px solid #594cda;
+  border-radius: 32px;
+  background-color: #594cda;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 0;
+  text-decoration: none;
+  transition: all 0.2s;
+}
 @media (max-width: 1024px) {
-  .container {
-    flex-direction: column;
-    text-align: left; /* Align text to the left */
-  }
-
   .text-container {
     max-width: 100%;
-    text-align: left; /* Align the text within the container to the left */
+    text-align: left;
   }
 
   .image-container {
@@ -146,35 +179,26 @@
   }
 
   .flex.items-center {
-    justify-content: flex-start; /* Align icon and text to the left */
+    justify-content: flex-start;
   }
 
   .ml-1 {
     margin-left: 0;
   }
-
-  /* .space-x-3 {
-    margin-left: 0;
-  } */
-
   .flex-wrap {
-    flex-wrap: wrap; /* Ensure buttons stack on smaller screens */
+    flex-wrap: wrap;
   }
-
-  /* Button responsiveness */
   .w-32,
   .w-28 {
-    width: 100%; /* Buttons will take up full width on mobile */
-    max-width: 200px; /* Limit button width for better look */
+    width: 100%;
+    max-width: 200px;
   }
 
   .h-11 {
-    height: 40px; /* Adjust button height for mobile */
+    height: 40px;
   }
-
-  /* Adjust text size */
   .text-sm {
-    font-size: 0.875rem; /* Make text size smaller for mobile */
+    font-size: 0.875rem;
   }
 }
 </style>

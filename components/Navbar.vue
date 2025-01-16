@@ -1,29 +1,42 @@
 <template>
   <div
-    :class="['navbar', { scrolled: isScrolled }]"
-    class="flex justify-between items-center fixed left-0 right-0 p-2 pt-[1.6rem] bg-transparent z-10 w-full transition-all ease-in-out"
+    :class="['navbar', isScrolled ? 'scrolled' : 'fixed-top top-nav-collapse']"
+    class="fixed left-0 right-0 pt-[1.6rem] bg-transparent z-10 transition-all ease-in-out flex justify-center"
   >
-    <div class="navbar-img lg:pl-2 lg:pt-[4px]">
-      <img src="../assets/images/navbarLogo.png" alt="Logo" class="h-8" />
-    </div>
-    <div class="flex items-center mr-20 lg:mr-[4.2rem]">
-      <NavbarLinks
-        :activeLink="navbarStore.activeLink"
-        :dropdownOpen="navbarStore.dropdownOpen"
-        @setActiveLink="setActiveLink"
-        @toggleDropdown="toggleDropdown"
-      />
-    </div>
-
-    <button
-      class="lg:hidden text-xl text-gray-400 hover:text-black"
-      type="button"
-      data-toggle="offcanvas"
+    <div
+      class="container px-4 sm:px-8 lg:px-8 flex flex-wrap items-center justify-between lg:flex-nowrap w-full"
     >
-      <span
-        class="navbar-toggler-icon inline-block w-8 h-8 align-middle"
-      ></span>
-    </button>
+      <div
+        class="navbar-img inline-block text-xl whitespace-nowrap hover:no-underline focus:no-underline"
+      >
+        <img
+          src="../assets/images/navbarLogo.png"
+          alt="Logo"
+          class="h-[2rem]"
+        />
+      </div>
+
+      <div>
+        <div class="flex items-left">
+          <NavbarLinks
+            :activeLink="navbarStore.activeLink"
+            :dropdownOpen="navbarStore.dropdownOpen"
+            @setActiveLink="setActiveLink"
+            @toggleDropdown="toggleDropdown"
+          />
+        </div>
+
+        <button
+          class="lg:hidden text-xl text-gray-400 hover:text-black"
+          type="button"
+          data-toggle="offcanvas"
+        >
+          <span
+            class="navbar-toggler-icon inline-block w-8 h-8 align-middle"
+          ></span>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,28 +75,62 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+@media (min-width: 1024px) {
+  .navbar.top-nav-collapse {
+    padding-top: 1.45rem;
+    padding-bottom: 0.5rem;
+    background: rgba(197, 234, 249, 1);
+  }
+}
+
 .navbar {
   transition: all 0.3s ease;
 }
 
 .navbar.scrolled {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
   background-color: #f1f9fc;
 }
-.navbar-img{
-  /* ml-14; */
-  margin-left: 72px;
+.navbar-img {
   vertical-align: middle;
 }
 @media (max-width: 1024px) {
   .navbar {
-      background-color: #f1f9fc;
-      padding:8px 0 8px 0;
+    background-color: transparent;
+    flex-wrap: nowrap;
+    justify-content: start;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 1.75rem;
   }
-  .navbar-img{
+  .navbar-img {
     margin-left: 32px;
     vertical-align: middle;
+  }
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+  .navbar {
+    position: relative;
+    background-color: #f1f9fc;
+    padding: 0.5rem 1rem;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 0.75rem;
+    transition: all 0.2s ease;
+  }
+  @media (max-width: 768px) {
+    .navbar {
+      position: fixed;
+    }
   }
 }
 </style>

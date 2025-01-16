@@ -1,30 +1,35 @@
 <template>
   <div class="pricing-card">
-    <h3 class="plan-name">{{ planName?.toUpperCase() }}</h3>
-    <p class="price">
-      <span class="amount">
-        <span class="currency-symbol">$</span>{{ price }}
-      </span>
-    </p>
-    <span class="price-unit">{{ priceUnit }}</span>
-    <p class="description text-left">{{ description }}</p>
+    <div class="pricing-card-body">
+      <h3 class="plan-name">{{ planName?.toUpperCase() }}</h3>
+      <div class="price">
+        <p class="amount flex items-center justify-center">
+          <span class="currency-symbol">$</span>{{ price }}
+        </p>
+      </div>
+      <p class="price-unit !mt-4">{{ priceUnit }}</p>
+      <p class="description text-left">{{ description }}</p>
+      <ul class="features-list">
+        <li
+          v-for="(feature, index) in features"
+          :key="index"
+          class="flex justify-start items-start"
+        >
+          <div class="flex items-center h-full">
+            <img
+              src="../assets/images/rightSolidArrow.svg"
+              class="arrow-icon"
+              alt="Dropdown Arrow"
+            />
+          </div>
+          <p class="feature-text md:whitespace-nowrap text-left">
+            {{ feature }}
+          </p>
+        </li>
+      </ul>
 
-    <ul class="features-list">
-      <li
-        v-for="(feature, index) in features"
-        :key="index"
-        class="feature-item"
-      >
-        <img
-          src="../assets/images/rightSolidArrow.svg"
-          class="arrow-icon"
-          alt="Dropdown Arrow"
-        />
-        <span class="feature-text">{{ feature }}</span>
-      </li>
-    </ul>
-
-    <button class="download-btn">Download</button>
+      <button class="download-btn">Download</button>
+    </div>
   </div>
 </template>
 
@@ -40,25 +45,31 @@ defineProps({
 
 <style scoped>
 .pricing-card {
-  background-color: #fff;
-  border-radius: 7px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 335px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 3rem 1.75rem 2.5rem 1.75rem;
   position: relative;
-  height: 100%;
-  overflow: visible;
+  display: block;
+  background-color: #ffffff;
+  max-width: 330px;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  border: 1px solid #bcc4ca;
+  border-radius: 8px;
 }
 
+@media (min-width: 700px) {
+  .pricing-card {
+    margin-bottom: 6rem;
+  }
+  .pricing-card-body {
+    padding: 3rem 2.25rem 3rem 2.25rem;
+  }
+}
 .plan-name {
   margin-bottom: 1rem;
   color: #eb427e;
   font-weight: 700;
   font-size: 1.5rem;
+  padding-bottom: 30px;
 }
 
 .price {
@@ -68,10 +79,6 @@ defineProps({
 
 .amount {
   color: #000;
-}
-
-.price-unit {
-  color: #6b747b;
 }
 
 .description {
@@ -142,7 +149,7 @@ defineProps({
 
 @media (max-width: 768px) {
   .pricing-card {
-    width: 90%;
+    /* width: 90%; */
     padding: 2rem 1.25rem 4rem 1.25rem;
   }
 
@@ -162,7 +169,6 @@ defineProps({
     font-size: 0.75rem;
     padding: 0.75rem 1.5rem;
     margin-bottom: 10px;
-
   }
 }
 
@@ -189,5 +195,8 @@ defineProps({
     padding: 0.5rem 1rem;
     margin-bottom: 10px;
   }
+  .price-unit {
+  color: #6b747b;
+}
 }
 </style>

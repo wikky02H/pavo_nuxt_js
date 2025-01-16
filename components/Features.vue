@@ -1,15 +1,17 @@
 <template>
-  <div class="lg:p-[5rem] md:p-[2rem] p-[10px]">
-    <Card :features="features" />
+  <div class="container p-4 lg:px-[35px] lg:mt-[26px]">
+    <Card :features="formattedFeatures" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { features } from '~/constants/dataSets'
-import Card from './Card.vue'
+    import { usePageContent } from '~/composables/usePageContent'
+    const { getDetailContent } = usePageContent()
+    const formattedFeatures = getDetailContent(0, 'features', 'features')
 </script>
+
 <style scoped>
-.features {
-  padding: 5rem;
-}
+  .features {
+    padding: 5rem;
+  }
 </style>
