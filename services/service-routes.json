@@ -1,0 +1,29 @@
+{
+    "home": {
+      "menuList": {
+        "endpoint": "Menu/all",
+        "method": "GET"
+      },
+      "icons": {
+        "endpoint": "Menu/all-icons",
+        "method": "GET"
+      },
+      "contents": {
+        "endpoint": "Menu/contents",
+        "method": "GET"
+      },
+      "statistics": {
+        "endpoint": "Menu/statistics",
+        "method": "GET"
+      },
+      "subscription": {
+        "endpoint": "Menu/subscription",
+        "method": "GET"
+      },
+      "feedbackContent": {
+        "endpoint": "Menu/feedbackContent",
+        "method": "GET"
+      }
+    }
+  }
+  
